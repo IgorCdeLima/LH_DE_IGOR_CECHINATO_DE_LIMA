@@ -27,4 +27,5 @@ class DataLake:
 
     # Extrair os dados de nosso arquivo.SQL e salvar por tabela
     def sql_estractor(self):
-        self.file_sql_bkp.data_search(self.today)
+        address_table = self.file_sql_bkp.data_search(self.today)
+        print(address_table)
