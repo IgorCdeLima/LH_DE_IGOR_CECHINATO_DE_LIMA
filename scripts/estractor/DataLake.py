@@ -19,7 +19,7 @@ class DataLake:
         try:
             address.mkdir(parents=True, exist_ok=False)
             file_csv = self.file_csv_bkp.bkp_csv(address.resolve())
-            print(f"new addres to csv file on date {self.today}: {file_csv} ")
+            print(f"new file transacoes.csv on date {self.today} in: {file_csv} ")
 
         except Exception as error:
             print(f"error: {error}")
@@ -27,5 +27,10 @@ class DataLake:
 
     # Extrair os dados de nosso arquivo.SQL e salvar por tabela
     def sql_estractor(self):
-        address_table = self.file_sql_bkp.data_search(self.today)
-        print(address_table)
+        try:
+            address_table = self.file_sql_bkp.data_search(self.today)
+            print(f"new file table.csv on date {self.today} in: ")
+            for addres in address_table:
+                print(addres)
+        except Exception as error:
+            print(f"{error}")
