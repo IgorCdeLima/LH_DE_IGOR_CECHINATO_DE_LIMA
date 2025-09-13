@@ -12,23 +12,22 @@ class CsvDataEstractor:
     # Create a backup
     def bkp_csv(self, today):
         if os.path.exists(self.static_address.resolve()):
-
             new_address = Path(fr"{self.data_lake}/{today}/csv")
-            new_address.mkdir(parents=True, exist_ok=False)
+            file_bkp = Path(new_address / "transacoes.csv")
+            
+            if not os.path.exists(new_address.resolve()):
+                try:
+                    new_address.mkdir(parents=True, exist_ok=False)
+                    shutil.copy(self.static_address.resolve(), file_bkp.resolve())
+                except Exception as error:
+                    raise Exception(f"error: {error}")
+                self._clean_csv()
 
-            try:
-
-                file_bkp = Path(new_address / "transacoes.csv")
-                shutil.copy(self.static_address.resolve(), file_bkp.resolve())
-            except Exception as error:
-                print(f"error: {error}")
-                return error
-        
-            self._clean_csv()
-
-            print(f"new file transacoes.csv on date {today} in: {file_bkp} ")
-            return file_bkp.resolve()
-        
+                print(f"new file transacoes.csv on date {today} in: {file_bkp} ")
+                return file_bkp.resolve()
+            else:
+                raise FileExistsError(f"transacoes.csv file exist in: {new_address.resolve()}")
+            
         else:
             raise FileNotFoundError(f"CSV file not found: {self.static_address}")
 
