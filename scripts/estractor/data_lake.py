@@ -3,6 +3,8 @@ from pathlib import Path
 from scripts.estractor.csv_data_estractor import CsvDataEstractor
 from scripts.estractor.sql_estractor import SqlEstractor
 
+# melhorar o Exception aqui
+
 
 class DataLake:
     def __init__(self):
@@ -12,19 +14,22 @@ class DataLake:
     
     # Extract data from transacoes.CSV file
     def csv_estractor(self):
-       
+        file_csv = None
         try:
             file_csv = self.file_csv_bkp.bkp_csv(self.today)
         except Exception as error:
             raise Exception(f"File transacoes.csv do not exist. error: {error}")
         
-        return file_csv
+        if file_csv is not None:
+            return file_csv
 
     # Estract datas from banvic.sql
     def sql_estractor(self):
+        address_table = None
         try:
             address_table = self.file_sql_bkp.data_search(self.today)
         except Exception as error:
             raise UnboundLocalError(f"Files tables.csv do not exist. Error{error}")
         
-        return address_table
+        if address_table is not None:
+            return address_table

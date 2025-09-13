@@ -3,6 +3,7 @@ from scripts.data_warehousing.csv_loader import CsvLoader
 from scripts.data_warehousing.table_loader import TableLoader
 from datetime import datetime
 from scripts.config import Config
+from psycopg2 import OperationalError
 
 
 class PostgreLoader:
@@ -23,28 +24,29 @@ class PostgreLoader:
     def connect_postgresql(self):
         print(f"Initializing the connection to Data Warehousing on {self.today}")
 
+        print(self.host, self.port, self.db_name, self.user, self.password)
+
         # connects to postgreSql Docker
         try:
-            conn = psycopg2.connect(
+            with psycopg2.connect(
                 host= self.host,
                 port= self.port,
                 dbname= self.db_name,
                 user= self.user,
                 password= self.password
-            )
+                ) as conn:
+                    print("Conection estabilished")
+                    
+                    self.sql_table_loader(conn, self.address_tables)
+                    self.csv_table_loader(conn, self.address_csv)                         
+        except OperationalError as error:
+            raise RuntimeError(f"Data Warehousing connection error:\n {error}\nVerify Data Warehousing credentials or initialize it")
         except Exception as error:
-            print(f"error: {error}, verify credentials to connect to the ware housing")
-            return error
+            raise RuntimeError(f"error while loading data:{error}")
         
-        if conn:
-            try:
-                self.sql_table_loader(conn, self.address_tables)
-                self.csv_table_loader(conn, self.address_csv)
-            except Exception as error:
-                print(f"error:{error}")
-
-        print(f"closing the connection to Data Warehousing on {self.today}")
-        conn.close()
+        print(f"closing the connection to Data Warehousing on {self.today}") 
+            
+        
 
 
     def sql_table_loader(self, conn, address_tables):

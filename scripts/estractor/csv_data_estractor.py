@@ -20,7 +20,7 @@ class CsvDataEstractor:
                     new_address.mkdir(parents=True, exist_ok=False)
                     shutil.copy(self.static_address.resolve(), file_bkp.resolve())
                 except Exception as error:
-                    raise Exception(f"error: {error}")
+                    raise RuntimeError(f"error: {error}")
                 self._clean_csv()
 
                 print(f"new file transacoes.csv on date {today} in: {file_bkp} ")

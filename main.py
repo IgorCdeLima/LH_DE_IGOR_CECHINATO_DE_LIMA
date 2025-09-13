@@ -10,4 +10,4 @@ try:
     sql_insert = PostgreLoader(address_csv, address_tables)
     sql_insert.connect_postgresql()
 except Exception as error:
-    raise UnboundLocalError(f"Files do not exist. error: {error}")
+    print(f"{error}")

@@ -75,7 +75,7 @@ class SqlEstractor:
                                     row.append(line.split("\t"))
 
                 except Exception as error:
-                    raise FileExistsError({f"tables.csv files exist in: {new_table.resolve()}. error {error}"})
+                    raise RuntimeError({f"error creating table.csv: {error}"})
                 
                 print(f"new file tables.csv on date {today} in: ")
                 for addres in address_tables:
