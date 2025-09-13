@@ -18,7 +18,7 @@ class CsvDataEstractor:
             shutil.copy(self.static_address.resolve(), file_bkp.resolve())
         except Exception as error:
             print(f"error: {error}")
-            return 
+            return error
         
         self._limpar_csv()
         return file_bkp.resolve()

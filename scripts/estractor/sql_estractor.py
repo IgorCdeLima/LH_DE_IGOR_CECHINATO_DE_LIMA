@@ -12,6 +12,10 @@ class SqlEstractor:
     # Searching for data in the table
     def data_search(self, today):
 
+            
+        # fazer a verificação da existencia dos aarquivos
+
+
         reading_data = False
         address_tables = []
 
