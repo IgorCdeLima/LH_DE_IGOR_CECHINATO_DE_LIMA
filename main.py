@@ -6,6 +6,6 @@ data_lake = DataLake()
 address_csv = data_lake.csv_estractor()
 address_tables = data_lake.sql_estractor()
 
-sql_insert = PostgreLoader(address_csv, address_tables)
-
-sql_insert.connect_postgresql()
+if address_csv and address_tables:
+    sql_insert = PostgreLoader(address_csv, address_tables)
+    sql_insert.connect_postgresql()
