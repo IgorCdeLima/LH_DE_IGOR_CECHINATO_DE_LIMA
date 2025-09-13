@@ -1,17 +1,17 @@
 from datetime import datetime
 from pathlib import Path
-from scripts.estractor.CsvDataEstractor import CsvDataEstractor
-from scripts.estractor.SqlEstractor import SqlEstractor
+from scripts.estractor.csv_data_estractor import CsvDataEstractor
+from scripts.estractor.sql_estractor import SqlEstractor
 
 
 class DataLake:
 
-    today = datetime.today().strftime("%Y-%m-%d")
-    file_csv_bkp = CsvDataEstractor()
-    file_sql_bkp = SqlEstractor()
+    
     
     def __init__(self):
-        pass
+        self.today = datetime.today().strftime("%Y-%m-%d")
+        self.file_csv_bkp = CsvDataEstractor()
+        self.file_sql_bkp = SqlEstractor()
     
     # Extrair os dados de nosso arquivo.CSV
     def csv_estractor(self):

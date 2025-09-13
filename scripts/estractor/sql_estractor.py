@@ -3,7 +3,8 @@ from pathlib import Path
 
 class SqlEstractor:
 
-    static_addres = Path(r"./sql/banvic.sql")
+    static_address = Path(r"./sql/banvic.sql")
+    
 
     def __init__(self):
         pass
@@ -15,7 +16,6 @@ class SqlEstractor:
         address_tables = []
 
         # name of tables
-        name_table = ["agencias.csv", "clientes.csv", "colaborador_agencia.csv", "colaboradores.csv", "contas.csv", "proposta_credito.csv"]
         table_num = 0
 
         header = []
@@ -27,7 +27,7 @@ class SqlEstractor:
             new_table.mkdir(parents=True, exist_ok=False)
             
             # creating name_table.csv
-            with open(self.static_addres, "r", encoding="utf-8") as file:
+            with open(self.static_address, "r", encoding="utf-8") as file:
                     for line in file:
                         line = line.strip()
 
@@ -40,11 +40,24 @@ class SqlEstractor:
                             end = line.find(")")
                             header = line[start:end].split(",")
 
-                            if table_num == len(name_table):
-                                break
-                            
+                            match table_num:
+                                case 1:
+                                    file_name = fr"{new_table.resolve()}/agencias.csv"
+                                case 2:
+                                    file_name = fr"{new_table.resolve()}/clientes.csv"
+                                case 3:
+                                    file_name = fr"{new_table.resolve()}/colaborador_agencia.csv"
+                                case 4:
+                                    file_name = fr"{new_table.resolve()}/colaboradores.csv"
+                                case 5:
+                                    file_name = fr"{new_table.resolve()}/contas.csv"
+                                case 6:
+                                    file_name = fr"{new_table.resolve()}/proposta_credito.csv"
+                                case _:
+                                    break
+
                         if r"\." in line:
-                            file_name = fr"{new_table.resolve()}/{name_table[table_num]}"
+
                             address_tables.append(file_name)
 
                             try:
@@ -61,7 +74,7 @@ class SqlEstractor:
                             row.append(line.split("\t"))
         except Exception as error:
             print(f"error: {error}")
-            return
+            return error
     
         return address_tables
 

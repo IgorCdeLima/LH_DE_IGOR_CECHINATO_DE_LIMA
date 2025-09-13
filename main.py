@@ -1,4 +1,4 @@
-from scripts.estractor.DataLake import DataLake
+from scripts.estractor.data_lake import DataLake
 
 
 data_lake = DataLake()
