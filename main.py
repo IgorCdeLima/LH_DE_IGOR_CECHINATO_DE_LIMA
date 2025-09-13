@@ -6,6 +6,8 @@ data_lake = DataLake()
 address_csv = data_lake.csv_estractor()
 address_tables = data_lake.sql_estractor()
 
-if address_csv and address_tables:
+try:
     sql_insert = PostgreLoader(address_csv, address_tables)
     sql_insert.connect_postgresql()
+except Exception as error:
+    raise UnboundLocalError(f"Files do not exist. error: {error}")

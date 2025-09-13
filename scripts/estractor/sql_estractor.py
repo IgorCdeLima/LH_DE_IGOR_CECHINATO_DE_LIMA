@@ -77,11 +77,10 @@ class SqlEstractor:
                 print(f"error: {error}")
                 return error
             
-            print(f"new file table.csv on date {today} in: ")
+            print(f"new file tables.csv on date {today} in: ")
             for addres in address_tables:
                 print(addres)
-        
             return address_tables
         else:
-            print(f"arquive NotFound in path: {self.static_address}")
+            raise FileNotFoundError(f"SQL file not found: {self.static_address}")
 

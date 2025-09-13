@@ -16,13 +16,10 @@ class DataLake:
         try:
             file_csv = self.file_csv_bkp.bkp_csv(self.today)
         except Exception as error:
-            print(f"error: {error}")
-            return error
-
-        if file_csv: 
-            return file_csv
-        else:
-            print(f"file transacoes.csv was not created")
+            raise UnboundLocalError("File transacoes.csv do not exist")
+        
+        return file_csv
+            
     
 
     # Extrair os dados de nosso arquivo.SQL e salvar por tabela
@@ -30,9 +27,6 @@ class DataLake:
         try:
             address_table = self.file_sql_bkp.data_search(self.today)
         except Exception as error:
-            print(f"{error}")
+            raise UnboundLocalError("Files tables.csv do not exist")
         
-        if address_table:
-            return address_table
-        else:
-            print(f"files tables.csv were not created")
+        return address_table

@@ -30,7 +30,7 @@ class CsvDataEstractor:
             return file_bkp.resolve()
         
         else:
-            print(f"arquive NotFound in path: {self.static_address}")
+            raise FileNotFoundError(f"CSV file not found: {self.static_address}")
 
     # Clean the file: transacoes.csv 
     def _clean_csv(self):
@@ -41,7 +41,7 @@ class CsvDataEstractor:
             csv_to_clean = pd.DataFrame(columns=header)
             csv_to_clean.to_csv(self.static_address, index=False )
         else: 
-             print(f"arquive NotFound in path: {self.static_address}")
+            raise FileNotFoundError(f"CSV file not found: {self.static_address}")
         
         
 
