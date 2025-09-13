@@ -1,14 +1,13 @@
 import pandas as pd
 from pathlib import Path
 import os
+from scripts.config import Config
 
 class SqlEstractor:
 
-    static_address = Path(r"./sql/banvic.sql")
-    
-
     def __init__(self):
-        pass
+        self.static_address = Config.SQL_SOURCE
+        self.data_lake = Config.DATA_LAKE_DIR
     
     # Searching for data in the table
     def data_search(self, today):
@@ -26,7 +25,7 @@ class SqlEstractor:
 
             try:
                 # address of tables
-                new_table = Path(fr"./data/{today}/sql")
+                new_table = Path(fr"{self.data_lake}/{today}/sql")
                 new_table.mkdir(parents=True, exist_ok=False)
                 # creating name_table.csv
                 with open(self.static_address, "r", encoding="utf-8") as file:
@@ -85,8 +84,4 @@ class SqlEstractor:
             return address_tables
         else:
             print(f"arquive NotFound in path: {self.static_address}")
-
-
-
-                        
 

@@ -2,6 +2,7 @@ import psycopg2
 from scripts.data_warehousing.csv_loader import CsvLoader
 from scripts.data_warehousing.table_loader import TableLoader
 from datetime import datetime
+from scripts.config import Config
 
 
 class PostgreLoader:
@@ -10,18 +11,26 @@ class PostgreLoader:
         self.address_csv = address_csv
         self.address_tables = address_tables
         self.today = datetime.today().strftime("%Y-%m-%d\t%H:%M:%S")
+        
+        self.host = Config.HOST
+        self.port = Config.PORT
+        self.db_name = Config.DB_NAME
+        self.user = Config.USER
+        self.password = Config.PASSWORD
+
+
 
     def connect_postgresql(self):
         print(f"Initializing the connection to Data Warehousing on {self.today}")
 
-        # Realizamos a conexão com o Docker do postgreSql
+        # connects to postgreSql Docker
         try:
             conn = psycopg2.connect(
-                host="localhost",
-                port=55432,
-                dbname="banvic",
-                user="data_engineer",
-                password="v3rysecur&pas5w0rd"
+                host= self.host,
+                port= self.port,
+                dbname= self.db_name,
+                user= self.user,
+                password= self.password
             )
         except Exception as error:
             print(f"error: {error}, verify credentials to connect to the ware housing")

@@ -2,20 +2,18 @@ from pathlib import Path
 import pandas as pd
 import shutil
 import os
+from scripts.config import Config
 
 class CsvDataEstractor:
-
-    static_address = Path(r"./csv/transacoes.csv")
-
     def __init__(self):
-        pass
+        self.static_address = Config.CSV_SOURCE
+        self.data_lake = Config.DATA_LAKE_DIR
         
-
     # Create a backup
     def bkp_csv(self, today):
         if os.path.exists(self.static_address.resolve()):
 
-            new_address = Path(fr"./data/{today}/csv")
+            new_address = Path(fr"{self.data_lake}/{today}/csv")
             new_address.mkdir(parents=True, exist_ok=False)
 
             try:
@@ -26,7 +24,7 @@ class CsvDataEstractor:
                 print(f"error: {error}")
                 return error
         
-            self._limpar_csv()
+            self._clean_csv()
 
             print(f"new file transacoes.csv on date {today} in: {file_bkp} ")
             return file_bkp.resolve()
@@ -35,7 +33,7 @@ class CsvDataEstractor:
             print(f"arquive NotFound in path: {self.static_address}")
 
     # Clean the file: transacoes.csv 
-    def _limpar_csv(self):
+    def _clean_csv(self):
         if os.path.exists(self.static_address):
             with open(self.static_address, "r") as file:
                 header = file.readline().strip().split(",")

@@ -11,14 +11,12 @@ class CsvLoader:
         if self.address_csv:
             try:
                 self.cur.execute(f"""
-                SELECT * FROM agencias
+                SELECT * FROM agencias;
                 
             """)
             except Exception as error:
                 print(f"error: {error}\nnão foi encontrar a tabela")
 
-
-            
         else:
             print(f"arquive NotFound in path: {self.address_csv}")
 
