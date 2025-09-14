@@ -48,8 +48,6 @@ class CsvLoader:
                         line = line.split(",")
                         if i == 0:
                             pass
-                        elif i > 10:
-                            break
                         else:
                             data = {
                                 'cod_transacao' : int(line[0]),
