@@ -1,7 +1,10 @@
 from psycopg2 import ProgrammingError, errors
+import pandas as pd
 
 
 class CsvLoader:
+
+    CHUNKSIZE = 1
 
     def __init__(self, conn, address_csv):
         self.conn = conn
@@ -46,9 +49,7 @@ class CsvLoader:
                 with self.conn.cursor() as cur:   
                     for i, line in enumerate(transacoes):
                         line = line.split(",")
-                        if i == 0:
-                            pass
-                        else:
+                        if i > 0:
                             data = {
                                 'cod_transacao' : int(line[0]),
                                 'num_conta' : int(line[1]),
@@ -82,7 +83,45 @@ class CsvLoader:
             raise Exception(f"Unexpected error: {error}")
 
 
+    def transacao_table(self):
+        print("Inserting data into the proposta_credito table ")
+        try:
+            with self.conn.cursor() as cur:
+                for chunk in pd.read_csv(self.address_csv, chunksize=self.CHUNKSIZE):
+                    chunk.columns = chunk.columns.str.strip()  
+                    for index, row in chunk.iterrows():
+                        data = {
+                            'cod_transacao' : int(row['cod_transacao']),
+                            'num_conta' : int(row['num_conta']),
+                            'data_transacao' : row['data_transacao'],
+                            'nome_transacao' : row['nome_transacao'],
+                            'valor_transacao' : row['valor_transacao']
+                            }
+                        cur.execute(
+                                """INSERT INTO public.transacoes(cod_transacao,num_conta,data_transacao,nome_transacao,valor_transacao) 
+                                VALUES (%(cod_transacao)s, %(num_conta)s, %(data_transacao)s, %(nome_transacao)s, %(valor_transacao)s) 
+                                ON CONFLICT (cod_transacao) DO NOTHING
+                                RETURNING cod_transacao;
+                                """, data)
+                            
+                        result = cur.fetchone()
+                        if result:
+                            print(f"Inserted line: {data['cod_transacao']}")
+                        else:
+                            print(f"line not inserted: {data['cod_transacao']}")
 
+        except errors.UndefinedTable as error:
+            raise errors.UndefinedTable(f"the table public.transacoes does not exist")
+        except ProgrammingError as error:
+            raise ProgrammingError(f"error in sql command: {error}")
+        except FileNotFoundError as error:
+            raise FileNotFoundError(f"error searching the path: {error}")
+        except errors.IntegrityError as error:
+            raise errors.IntegrityError(f"integraty error inserting data: {error}")
+        except Exception as error:
+            raise Exception(f"Unexpected error: {error}")
+        
+        print("insertion completed in the propostas_credito table")
 
 
 
