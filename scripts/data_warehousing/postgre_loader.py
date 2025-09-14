@@ -24,8 +24,6 @@ class PostgreLoader:
     def connect_postgresql(self):
         print(f"Initializing the connection to Data Warehousing on {self.today}")
 
-        print(self.host, self.port, self.db_name, self.user, self.password)
-
         # connects to postgreSql Docker
         try:
             with psycopg2.connect(
@@ -35,18 +33,46 @@ class PostgreLoader:
                 user= self.user,
                 password= self.password
                 ) as conn:
-                    print("Conection estabilished")
                     
-                    self.sql_table_loader(conn, self.address_tables)
+                    with conn.cursor() as cur:
+                        cur.execute("""
+                            SELECT EXISTS(
+                                SELECT 1
+                                FROM information_schema.tables
+                                WHERE table_schema = 'public'
+                                    AND table_name = 'transacoes'
+                                )
+                                """)
+                        exist_transacoes = cur.fetchone()[0]
+
+                        cur.execute("""
+                            SELECT EXISTS(
+                                SELECT 1
+                                FROM information_schema.tables
+                                WHERE table_schema = 'public'
+                                    AND table_name = 'contas'
+                                )
+                                """)
+                        exist_contas = cur.fetchone()[0]
+                        
+                        if (exist_transacoes is False) and (exist_contas is True):
+                            self.creater_table_transacoes(conn, self.address_csv)
+
+                    print("Conection estabilished")
+
+                    print(f"loading new data of the paths: ")
+                    for address_table in self.address_tables:
+                        print(f"{address_table}")
+                    #self.sql_table_loader(conn, self.address_tables)
+
+                    print(f"loading new data to path: {self.address_csv}")
                     self.csv_table_loader(conn, self.address_csv)                         
         except OperationalError as error:
-            raise RuntimeError(f"Data Warehousing connection error:\n {error}\nVerify Data Warehousing credentials or initialize it")
+            raise OperationalError(f"Data Warehousing connection error:\n {error}\nVerify Data Warehousing credentials or initialize it")
         except Exception as error:
-            raise RuntimeError(f"error while loading data:{error}")
+            raise Exception(f"Unexpected error: {error}")
         
         print(f"closing the connection to Data Warehousing on {self.today}") 
-            
-        
 
 
     def sql_table_loader(self, conn, address_tables):
@@ -56,9 +82,14 @@ class PostgreLoader:
 
     def csv_table_loader(self, conn, address_csv):
 
-        csv_loader_tables = CsvLoader(conn, address_csv)
+        csv_loader_tables = CsvLoader(conn,address_csv)
         csv_loader_tables.csv_loader()
 
+    
+    def creater_table_transacoes(self, conn, address_csv):
         
+        table_transacoes = CsvLoader(conn, address_csv)
+        table_transacoes.table_transacoes_creater()
+
         
 
