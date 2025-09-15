@@ -1,16 +1,9 @@
-import sys
-sys.path.append('/opt/airflow/scripts')
-
-from estractor.data_lake import DataLake
-from data_warehousing.postgre_loader import PostgreLoader
-
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from datetime import timedelta
 import pendulum
-
-
-
+from scripts.estractor.data_lake import DataLake
+from scripts.data_warehousing.postgre_loader import PostgreLoader
 
 
 class MainDag:
@@ -75,6 +68,3 @@ class MainDag:
         print(addres_csv)
         print(addres_tables)
 
-
-dag = MainDag()
-main_dg = dag.dag_start()
