@@ -1,7 +1,6 @@
 from datetime import datetime
-from pathlib import Path
-from scripts.estractor.csv_data_estractor import CsvDataEstractor
-from scripts.estractor.sql_estractor import SqlEstractor
+from scripts.csv_data_estractor import CsvDataEstractor
+from scripts.sql_estractor import SqlEstractor
 
 # melhorar o Exception aqui
 

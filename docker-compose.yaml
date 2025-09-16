@@ -69,7 +69,7 @@ x-airflow-common:
     AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK: 'true'
     # WARNING: Use _PIP_ADDITIONAL_REQUIREMENTS option ONLY for a quick checks
     # for other purpose (development, test and especially production usage) build/extend Airflow image.
-    _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}
+    _PIP_ADDITIONAL_REQUIREMENTS: "-r /opt/airflow/config/requirements.txt"
     # The following line can be used to set a custom config file, stored in the local config folder
     AIRFLOW_CONFIG: '/opt/airflow/config/airflow.cfg'
   volumes:
@@ -77,6 +77,7 @@ x-airflow-common:
     - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs
     - ${AIRFLOW_PROJ_DIR:-.}/config:/opt/airflow/config
     - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins
+    - ./config/requirements.txt:/opt/airflow/config/requirements.txt
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
     &airflow-common-depends-on
@@ -101,6 +102,19 @@ services:
       start_period: 5s
     restart: always
 
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: banvic
+      POSTGRES_USER: data_engineer
+      POSTGRES_PASSWORD: v3rysecur&pas5w0rd
+    volumes:
+      - ./dbdata:/var/lib/postgresql/data
+      - ./dags/sql/banvic.sql:/docker-entrypoint-initdb.d/banvic.sql
+    ports:
+      - 55432:5432
+    restart: always
+  
   redis:
     # Redis is limited to 7.2-bookworm due to licencing change
     # https://redis.io/blog/redis-adopts-dual-source-available-licensing/

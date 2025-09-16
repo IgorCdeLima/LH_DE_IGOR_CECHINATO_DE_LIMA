@@ -2,16 +2,17 @@ from pathlib import Path
 import pandas as pd
 import shutil
 import os
-from scripts.config import Config
+from scripts.info import Info
 
 class CsvDataEstractor:
     def __init__(self):
-        self.static_address = Config.CSV_SOURCE
-        self.data_lake = Config.DATA_LAKE_DIR
+        self.static_address = Info.CSV_SOURCE
+        self.data_lake = Info.DATA_LAKE_DIR
         
     # Create a backup
     def bkp_csv(self, today):
         if os.path.exists(self.static_address.resolve()):
+            print("CSV encontrado")
             new_address = Path(fr"{self.data_lake}/{today}/csv")
             file_bkp = Path(new_address / "transacoes.csv")
             
@@ -29,6 +30,7 @@ class CsvDataEstractor:
                 raise FileExistsError(f"transacoes.csv file exist in: {new_address.resolve()}")
             
         else:
+            print("CSV encontrado")
             raise FileNotFoundError(f"CSV file not found: {self.static_address}")
 
     # Clean the file: transacoes.csv 

@@ -1,8 +1,8 @@
 import psycopg2
-from scripts.data_warehousing.csv_loader import CsvLoader
-from scripts.data_warehousing.table_loader import TableLoader
+from scripts.csv_loader import CsvLoader
+from scripts.table_loader import TableLoader
 from datetime import datetime
-from scripts.config import Config
+from scripts.info import Info
 from psycopg2 import OperationalError
 
 
@@ -13,11 +13,11 @@ class PostgreLoader:
         self.address_tables = address_tables
         self.today = datetime.today().strftime("%Y-%m-%d\t%H:%M:%S")
         
-        self.host = Config.HOST
-        self.port = Config.PORT
-        self.db_name = Config.DB_NAME
-        self.user = Config.USER
-        self.password = Config.PASSWORD
+        self.host = Info.HOST
+        self.port = Info.PORT
+        self.db_name = Info.DB_NAME
+        self.user = Info.USER
+        self.password = Info.PASSWORD
 
 
 

@@ -1,17 +1,9 @@
 
-
-.venv/
-venv/
-
 __pycache__/
 *.pyc
 
 dbdata/
-logs/
 
 .env
 .vscode
-.DB_Store
-
-docker
-data
+dbdata/

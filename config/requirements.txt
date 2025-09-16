@@ -1,0 +1,14 @@
+# requirements.txt - dependências do projeto
+
+# Manipulação de dados
+pandas>=2.3.2
+
+# Banco de dados PostgreSQL
+psycopg2-binary>=2.9.7
+
+
+# Dependências auxiliares
+python-dotenv>=1.0.0
+
+# dokcer para o SDK
+docker==6.1.3

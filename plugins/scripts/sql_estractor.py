@@ -1,13 +1,13 @@
 import pandas as pd
 from pathlib import Path
 import os
-from scripts.config import Config
+from scripts.info import Info
 
 class SqlEstractor:
 
     def __init__(self):
-        self.static_address = Config.SQL_SOURCE
-        self.data_lake = Config.DATA_LAKE_DIR
+        self.static_address = Info.SQL_SOURCE
+        self.data_lake = Info.DATA_LAKE_DIR
     
     # Searching for data in the table
     def data_search(self, today):
