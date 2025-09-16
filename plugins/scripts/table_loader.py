@@ -121,8 +121,10 @@ class TableLoader:
                         
                         result = cur.fetchone()
                         if result:
+                            continue
                             print(f"Inserted line: {data['cod_agencia']}")
                         else:
+                            continue
                             print(f"line not inserted: {data['cod_agencia']}")
 
         except errors.UndefinedTable as error:
@@ -166,8 +168,10 @@ class TableLoader:
                         
                         result = cur.fetchone()
                         if result:
+                            continue
                             print(f"Inserted line: {data['cod_cliente']}")
                         else:
+                            continue
                             print(f"line not inserted: {data['cod_cliente']}")
 
         except errors.UndefinedTable as error:
@@ -203,8 +207,10 @@ class TableLoader:
                         
                         result = cur.fetchone()
                         if result:
+                            continue
                             print(f"Inserted line: {data['cod_colaborador']}")
                         else:
+                            continue
                             print(f"line not inserted: {data['cod_colaborador']}")
 
         except errors.UndefinedTable as error:
@@ -246,8 +252,10 @@ class TableLoader:
                         
                         result = cur.fetchone()
                         if result:
+                            continue
                             print(f"Inserted line: {data['cod_colaborador']}")
                         else:
+                            continue
                             print(f"line not inserted: {data['cod_colaborador']}")
 
         except errors.UndefinedTable as error:
@@ -289,8 +297,10 @@ class TableLoader:
                             """, data)
                         result = cur.fetchone()
                         if result:
+                            continue
                             print(f"Inserted line: {data['num_conta']}")
                         else:
+                            continue
                             print(f"line not inserted: {data['num_conta']}")
 
         except errors.UndefinedTable as error:
@@ -335,8 +345,10 @@ class TableLoader:
                             """, data)
                         result = cur.fetchone()
                         if result:
+                            continue
                             print(f"Inserted line: {data['cod_proposta']}")
                         else:
+                            continue
                             print(f"line not inserted: {data['cod_proposta']}")
 
         except errors.UndefinedTable as error:

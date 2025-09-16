@@ -14,7 +14,7 @@ def extract_transacoes_csv(ti):
 
 def extract_tables_sql(ti):
     data = DataLake()
-    address_tables = str(data.sql_estractor())
+    address_tables = [str(path) for path in data.sql_estractor()]
     ti.xcom_push(key='address_tables', value=address_tables)
     
 def insert_data_lake(ti):
@@ -30,7 +30,7 @@ def insert_data_lake(ti):
 with DAG(
     dag_id='lh_de_igor_cechinato_de_lima',
     start_date=pendulum.datetime(2025,1,1),
-    schedule= "15 2 * * *",
+    schedule= "30 * * * *",
     catchup=False, 
     max_active_runs= 1,
     tags=['benvic']

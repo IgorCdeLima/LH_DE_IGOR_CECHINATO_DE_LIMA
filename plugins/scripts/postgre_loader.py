@@ -4,13 +4,14 @@ from scripts.table_loader import TableLoader
 from datetime import datetime
 from scripts.info import Info
 from psycopg2 import OperationalError
+from pathlib import Path
 
 
 class PostgreLoader:
 
     def __init__(self, address_csv, address_tables):
-        self.address_csv = address_csv
-        self.address_tables = address_tables
+        self.address_csv = Path(address_csv)
+        self.address_tables =  [Path(path) for path in address_tables]
         self.today = datetime.today().strftime("%Y-%m-%d\t%H:%M:%S")
         
         self.host = Info.HOST

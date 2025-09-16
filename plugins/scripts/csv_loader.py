@@ -68,8 +68,10 @@ class CsvLoader:
                             
                         result = cur.fetchone()
                         if result:
+                            continue
                             print(f"Inserted line: {data['cod_transacao']}")
-                        else:
+                        else: 
+                            continue
                             print(f"line not inserted: {data['cod_transacao']}")
 
         except errors.UndefinedTable as error:
