@@ -36,18 +36,18 @@ class PostgreLoader:
                     print("Conection estabilished")
 
                     # checks if the transactions table exists, if not it is created
-                    # self.creater_table_transacoes(conn, self.address_csv)
+                    self.creater_table_transacoes(conn, self.address_csv)
 
                     # inserts data into the tables agencies, clients, agency_collaborator, collaborators, accounts, credit_proposals
                     print(f"loading new data of the paths: ")
                     for address_table in self.address_tables:
                         print(f"{address_table}")
-                    # self.sql_table_loader(conn, self.address_tables)
+                    self.sql_table_loader(conn, self.address_tables)
                     print("Data Loaded in tables agencias, clientes, colaborador_agencia, colaboradores, contas, propostas_credito")
 
                     # Inserts data into the transactions table
                     print(f"loading new data to path: {self.address_csv}")
-                    # self.csv_table_loader(conn, self.address_csv)
+                    self.csv_table_loader(conn, self.address_csv)
                     print("Data Loaded")
 
                     conn.commit()      
