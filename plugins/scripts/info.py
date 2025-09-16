@@ -9,8 +9,8 @@ class Info:
     SQL_SOURCE = BASE_DIR / 'dags' /  'sql' / 'banvic.sql'
     DATA_LAKE_DIR = BASE_DIR / 'dags/' 'data'
 
-    HOST = "localhost"
-    PORT = 55432
+    HOST = "db"
+    PORT = 5432
     DB_NAME = "banvic"
     USER = "data_engineer"
     PASSWORD = "v3rysecur&pas5w0rd"
