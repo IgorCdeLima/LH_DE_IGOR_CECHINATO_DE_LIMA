@@ -29,7 +29,7 @@ def insert_data_lake(ti):
 with DAG(
     dag_id='lh_de_igor_cechinato_de_lima',
     start_date=pendulum.datetime(2025,1,1),
-    schedule= "30 * * * *",
+    schedule= "45 * * * *",
     catchup=False, 
     max_active_runs= 1,
     tags=['benvic']
