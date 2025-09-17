@@ -23,8 +23,6 @@ def insert_data_lake(ti):
     db = PostgreLoader(address_csv, address_tables)
     db.connect_postgresql()
 
-
-
         
 
 with DAG(
