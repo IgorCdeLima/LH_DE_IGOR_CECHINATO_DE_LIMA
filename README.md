@@ -8,13 +8,18 @@ O objetivo é extrair dados de arquivos **CSV** (atualizados diariamente) e alim
 
 ## Estrutura Inicial
 
-* **docker-compose.yml**: sobe o banco PostgreSQL local.
-* **dbdata/**: volume de dados persistente do banco.
-* **sql/**: scripts SQL.
-* **dags/**: DAGs do Airflow.
+* **docker-compose.yaml**: sobe o banco PostgreSQL local.
+* **dbdata/**: volume de dados persistente do banco db.
 * **data/**: Data Lake local (arquivos CSV extraídos).
-* **scripts/**: scripts Python auxiliares.
+* **sql/**: arquivo banvic.sql
+* **csv/**: arquivos transacoes.csv
+* **config/**: arquivo requirements.txt e configurações do Airflow
+* **dags/**: DAG lh_de_igor_cechinato_de_lima.
+* **plugins/**: scripts Python auxiliares.
 * **logs/**: logs do Airflow.
+* **setup.bat**: inciializador do windows
+* **setup.sh**: inicializador do Linux/Mac
+
 
 ## Pré-requisitos
 
@@ -43,7 +48,7 @@ wsl --update
 
 5. Encontre a pasta LH_DE_IGOR_CECHINATO_DE_LIMA 
 
-6. para linux/mac rode o setup.sh para o linux setup.bat
+6. para linux/mac rode o setup.sh para o windows setup.bat
 
 7. Acesse o site de nosso Apache Airflow:  https://localhost:8080  
 
@@ -65,11 +70,3 @@ wsl --update
 ├── docker-compose.yaml  # Configuração Docker para PostgreSQL e Airflow
 └── README.md            # Este arquivo
 ```
-
-## Extra
-
-* atualização do caminho do banvic.sql no docker-compose.yml
- ```
- volumes: 
- -.sql/banvic.sql:/docker-entrypoint-initdb.d/banvic.sql
- ```
