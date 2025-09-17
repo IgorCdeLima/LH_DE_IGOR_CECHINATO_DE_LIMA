@@ -20,31 +20,34 @@ O objetivo é extrair dados de arquivos **CSV** (atualizados diariamente) e alim
 
 Antes de iniciar, é necessário ter instalado:
 
-* **Python 3.11 ou superior**
+* **Python 3.11 ou superior (não recomendado Python 3.13)**
 * **Docker**
-* **Docker Compose**
-
-# Preparação do Ambiente Python
-
-## 1. Windows 
-
+* **autalizar o WSL**
 
 ## Instalação do Docker
 
 1. Verifique se ele ja esta instalado
-```cmd
+
+```bash
 docker --version
 docker compose version
 ```
-2. Se não esta instalado acesse a url: https://www.docker.com/products/docker-desktop  realize o login no site e faça download conforme seu sistema operacional ARM64 ou AMD64
+2. Se não esta instalado acesse a url: https://www.docker.com/products/docker-desktop  realize o download conforme seu sistema operacional ARM64 ou AMD64
 
-3. Acesse o Docker-desktop e realize o Login conforme as credenciais do site
+3. Acesse o Docker-desktop e atualize o WSL
 
-4. Caso o Docker-Descktop peça para a atualizar, atualize o WSL com o comando
-```cmd
+```bash
 wsl --update
 ```
-5. após concluir a instalação do docker. apenas deve rodar o arquivo setup.bat
+4. após concluir a instalação e atualização do docker caso necessário, inicie o Docker e ele ficara rodando em background
+
+5. Encontre a pasta LH_DE_IGOR_CECHINATO_DE_LIMA 
+
+6. para linux/mac rode o setup.sh para o linux setup.bat
+
+7. Acesse o site de nosso Apache Airflow:  https://localhost:8080  
+
+8. Na aba dags procure por LH_DE_IGOR_CECHINATO_DE_LIMA e ative ela
 
 
 ## Estrutura do Projeto
@@ -52,15 +55,14 @@ wsl --update
 ```
 0.PROJETO/
 ├── dbdata/              # Dados persistentes do PostgreSQL
+├── csv                  # Arquivo csv utilizado na exportação dos dados
 ├── dags/                # DAGs do Airflow
 ├── data/                # Data Lake local (arquivos CSV)
-├── scripts/             # Scripts Python auxiliares
+├── plugins/             # Scripts Python auxiliares
 ├── sql/                 # Scripts SQL para criação do banco
 ├── logs/                # Logs do Airflow
-├── .gitignore           # Arquivos/pastas ignoradas pelo Git
-├── docker-compose.yml   # Configuração Docker para PostgreSQL e Airflow
-├── requirements.txt     # Dependências Python
-├── main.py              # Script principal
+├── config               # Configurações do docker / requirements.txt
+├── docker-compose.yaml  # Configuração Docker para PostgreSQL e Airflow
 └── README.md            # Este arquivo
 ```
 

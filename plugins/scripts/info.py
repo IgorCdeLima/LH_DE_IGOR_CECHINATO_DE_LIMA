@@ -5,9 +5,9 @@ import os
 class Info:
 
     BASE_DIR = Path(os.getenv('PIPELINE_BASE_DIR', Path(__file__).parents[2]))
-    CSV_SOURCE = BASE_DIR / 'dags' / 'csv' / 'transacoes.csv'
-    SQL_SOURCE = BASE_DIR / 'dags' /  'sql' / 'banvic.sql'
-    DATA_LAKE_DIR = BASE_DIR / 'dags/' 'data'
+    CSV_SOURCE = BASE_DIR / 'csv' / 'transacoes.csv'
+    SQL_SOURCE = BASE_DIR /  'sql' / 'banvic.sql'
+    DATA_LAKE_DIR = BASE_DIR / 'data'
 
     HOST = "db"
     PORT = 5432
