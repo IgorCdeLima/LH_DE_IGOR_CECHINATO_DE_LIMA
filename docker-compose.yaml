@@ -77,7 +77,10 @@ x-airflow-common:
     - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs
     - ${AIRFLOW_PROJ_DIR:-.}/config:/opt/airflow/config
     - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins
-    - ./config/requirements.txt:/opt/airflow/config/requirements.txt
+    - ${AIRFLOW_PROJ_DIR:-.}/config/requirements.txt:/opt/airflow/config/requirements.txt
+    - ${AIRFLOW_PROJ_DIR:-.}/data:/opt/airflow/data
+    - ${AIRFLOW_PROJ_DIR:-.}/csv:/opt/airflow/csv
+    - ${AIRFLOW_PROJ_DIR:-.}/sql:/opt/airflow/sql
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
     &airflow-common-depends-on
@@ -109,7 +112,7 @@ services:
       POSTGRES_USER: data_engineer
       POSTGRES_PASSWORD: v3rysecur&pas5w0rd
     volumes:
-      - ./dbdata:/var/lib/postgresql/data
+      - ${AIRFLOW_PROJ_DIR:-.}/dbdata:/var/lib/postgresql/data
       - ./sql/banvic.sql:/docker-entrypoint-initdb.d/banvic.sql
     ports:
       - 55432:5432

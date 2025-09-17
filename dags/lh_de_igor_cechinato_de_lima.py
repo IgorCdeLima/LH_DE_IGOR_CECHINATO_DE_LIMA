@@ -20,6 +20,7 @@ def extract_tables_sql(ti):
 def insert_data_lake(ti):
     address_csv = ti.xcom_pull(key='address_csv', task_ids='extract_transacoes_csv')
     address_tables = ti.xcom_pull(key='address_tables', task_ids='extract_tables_sql')
+    print(address_csv,address_tables)
     db = PostgreLoader(address_csv, address_tables)
     db.connect_postgresql()
 
