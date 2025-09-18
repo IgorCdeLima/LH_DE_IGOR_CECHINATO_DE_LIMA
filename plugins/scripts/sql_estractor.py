@@ -2,6 +2,7 @@ import pandas as pd
 from pathlib import Path
 import os
 from scripts.info import Info
+from scripts.exceptions.exception_program import ExceptionProgram
 
 class SqlEstractor:
 
@@ -75,7 +76,7 @@ class SqlEstractor:
                                     row.append(line.split("\t"))
 
                 except Exception as error:
-                    raise RuntimeError({f"error creating table.csv: {error}"})
+                    raise ExceptionProgram(error)
                 
                 print(f"new file tables.csv on date {today} in: ")
                 for addres in address_tables:

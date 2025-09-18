@@ -3,8 +3,8 @@ from scripts.csv_loader import CsvLoader
 from scripts.table_loader import TableLoader
 from datetime import datetime
 from scripts.info import Info
-from psycopg2 import OperationalError
 from pathlib import Path
+from scripts.exceptions.exception_program import ExceptionProgram
 
 
 class PostgreLoader:
@@ -53,10 +53,8 @@ class PostgreLoader:
 
                     conn.commit()      
 
-        except OperationalError as error:
-            raise OperationalError(f"Data Warehousing connection error:\n {error}\nVerify Data Warehousing credentials or initialize it")
         except Exception as error:
-            raise Exception(f"Unexpected error: {error}")
+            raise ExceptionProgram(error)
         
 
         print(f"closing the connection to Data Warehousing on {self.today}") 
@@ -99,10 +97,8 @@ class PostgreLoader:
                 
                 if (exist_transacoes is False) and (exist_contas is True):
                     table_transacoes.table_transacoes_creater()
-        except OperationalError as error:
-            raise OperationalError(f"Data Warehousing connection error:\n {error}\nVerify Data Warehousing credentials or initialize it")
         except Exception as error:
-            raise Exception(f"Unexpected error: {error}")
+            raise ExceptionProgram(error)
         
         
        

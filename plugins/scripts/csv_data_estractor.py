@@ -23,7 +23,7 @@ class CsvDataEstractor:
                 print(f"new file transacoes.csv on date {today} in: {csv_file.resolve()} ")
                 return str(csv_file.resolve())
         except Exception as error:
-            raise ExceptionProgram(error, today)
+            raise ExceptionProgram(error)
         
     # Clean the file: transacoes.csv 
     def _clean_csv(self):

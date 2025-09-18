@@ -1,4 +1,4 @@
-from psycopg2 import ProgrammingError, errors
+from scripts.exceptions.exception_program import ExceptionProgram
 import pandas as pd
 
 
@@ -34,12 +34,8 @@ class CsvLoader:
                     """)
                 print(f"table public.transacoes was configured with the foreign key num_conta from the table public.contas")          
 
-        except errors.UndefinedTable as error:
-            raise errors.UndefinedTable(f"the tables public.contas or public.transacoes does not exist")
-        except ProgrammingError as error:
-            raise ProgrammingError(f"error in sql command: {error}")
         except Exception as error:
-            raise Exception(f"Unexpected error: {error}")
+            raise ExceptionProgram(error)
         
         print("Table public.transacoes was created and configured")
         
@@ -74,16 +70,8 @@ class CsvLoader:
                             continue
                             print(f"line not inserted: {data['cod_transacao']}")
 
-        except errors.UndefinedTable as error:
-            raise errors.UndefinedTable(f"the table public.transacoes does not exist")
-        except ProgrammingError as error:
-            raise ProgrammingError(f"error in sql command: {error}")
-        except FileNotFoundError as error:
-            raise FileNotFoundError(f"error searching the path: {error}")
-        except errors.IntegrityError as error:
-            raise errors.IntegrityError(f"integraty error inserting data: {error}")
         except Exception as error:
-            raise Exception(f"Unexpected error: {error}")
+            raise ExceptionProgram(error)
         
         print("insertion completed in the propostas_credito table")
 

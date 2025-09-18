@@ -1,4 +1,4 @@
-from psycopg2 import OperationalError, errors, ProgrammingError
+from scripts.exceptions.exception_program import ExceptionProgram
 import pandas as pd
 
 class TableLoader:
@@ -91,10 +91,8 @@ class TableLoader:
                 if (proposta_credito) is True: self.propostas_credito_table(self.addres_tables[5])
                 else: print("could not connect the table proposta_credito")
 
-        except OperationalError as error:
-            raise OperationalError(f"Data Warehousing connection error:\n {error}\nVerify Data Warehousing credentials or initialize it")
         except Exception as error:
-           raise Exception(f"Unexpected error: {error}")
+            raise ExceptionProgram(error)
 
     def agencias_table(self, address_table):
         print("Inserting data into the agencias table ")
@@ -127,16 +125,8 @@ class TableLoader:
                             continue
                             print(f"line not inserted: {data['cod_agencia']}")
 
-        except errors.UndefinedTable as error:
-            raise errors.UndefinedTable(f"the table public.agencias does not exist")
-        except ProgrammingError as error:
-            raise ProgrammingError(f"error in sql command: {error}")
-        except FileNotFoundError as error:
-            raise FileNotFoundError(f"error searching the path: {error}")
-        except errors.IntegrityError as error:
-            raise errors.IntegrityError(f"integraty error inserting data: {error}")
         except Exception as error:
-            raise Exception(f"Unexpected error: {error}")
+            raise ExceptionProgram(error)
         
         print("insertion completed in the agencias table")
         
@@ -174,16 +164,8 @@ class TableLoader:
                             continue
                             print(f"line not inserted: {data['cod_cliente']}")
 
-        except errors.UndefinedTable as error:
-            raise errors.UndefinedTable(f"the table public.clientes does not exist")
-        except ProgrammingError as error:
-            raise ProgrammingError(f"error in sql command: {error}")
-        except FileNotFoundError as error:
-            raise FileNotFoundError(f"error searching the path: {error}")
-        except errors.IntegrityError as error:
-            raise errors.IntegrityError(f"integraty error inserting data: {error}")
         except Exception as error:
-            raise Exception(f"Unexpected error: {error}")
+            raise ExceptionProgram(error)
         
         print("insertion completed in the clientes table")
         
@@ -213,16 +195,8 @@ class TableLoader:
                             continue
                             print(f"line not inserted: {data['cod_colaborador']}")
 
-        except errors.UndefinedTable as error:
-            raise errors.UndefinedTable(f"the table public.colaborador_agencia does not exist")
-        except ProgrammingError as error:
-            raise ProgrammingError(f"error in sql command: {error}")
-        except FileNotFoundError as error:
-            raise FileNotFoundError(f"error searching the path: {error}")
-        except errors.IntegrityError as error:
-            raise errors.IntegrityError(f"integraty error inserting data: {error}")
         except Exception as error:
-            raise Exception(f"Unexpected error: {error}")
+            raise ExceptionProgram(error)
         
         print("insertion completed in the colaborador_agencia table")
 
@@ -258,16 +232,8 @@ class TableLoader:
                             continue
                             print(f"line not inserted: {data['cod_colaborador']}")
 
-        except errors.UndefinedTable as error:
-            raise errors.UndefinedTable(f"the table public.colaboradores does not exist")
-        except ProgrammingError as error:
-            raise ProgrammingError(f"error in sql command: {error}")
-        except FileNotFoundError as error:
-            raise FileNotFoundError(f"error searching the path: {error}")
-        except errors.IntegrityError as error:
-            raise errors.IntegrityError(f"integraty error inserting data: {error}")
         except Exception as error:
-            raise Exception(f"Unexpected error: {error}")
+            raise ExceptionProgram(error)
         
         print("insertion completed in the colaboradores table")
 
@@ -303,16 +269,8 @@ class TableLoader:
                             continue
                             print(f"line not inserted: {data['num_conta']}")
 
-        except errors.UndefinedTable as error:
-            raise errors.UndefinedTable(f"the table public.contas does not exist")
-        except ProgrammingError as error:
-            raise ProgrammingError(f"error in sql command: {error}")
-        except FileNotFoundError as error:
-            raise FileNotFoundError(f"error searching the path: {error}")
-        except errors.IntegrityError as error:
-            raise errors.IntegrityError(f"integraty error inserting data: {error}")
         except Exception as error:
-            raise Exception(f"Unexpected error: {error}")
+            raise ExceptionProgram(error)
         
         print("insertion completed in the contas table")
 
@@ -351,15 +309,7 @@ class TableLoader:
                             continue
                             print(f"line not inserted: {data['cod_proposta']}")
 
-        except errors.UndefinedTable as error:
-            raise errors.UndefinedTable(f"the table public.propostas_credito does not exist")
-        except ProgrammingError as error:
-            raise ProgrammingError(f"error in sql command: {error}")
-        except FileNotFoundError as error:
-            raise FileNotFoundError(f"error searching the path: {error}")
-        except errors.IntegrityError as error:
-            raise errors.IntegrityError(f"integraty error inserting data: {error}")
         except Exception as error:
-            raise Exception(f"Unexpected error: {error}")
+            raise ExceptionProgram(error)
         
         print("insertion completed in the propostas_credito table")
