@@ -1,4 +1,4 @@
-from scripts.exceptions.exception_program import ExceptionProgram
+
 import pandas as pd
 
 class TableLoader:
@@ -91,8 +91,8 @@ class TableLoader:
                 if (proposta_credito) is True: self.propostas_credito_table(self.addres_tables[5])
                 else: print("could not connect the table proposta_credito")
 
-        except Exception as error:
-            raise ExceptionProgram(error)
+        except Exception:
+            raise
 
     def agencias_table(self, address_table):
         print("Inserting data into the agencias table ")
@@ -125,8 +125,8 @@ class TableLoader:
                             continue
                             print(f"line not inserted: {data['cod_agencia']}")
 
-        except Exception as error:
-            raise ExceptionProgram(error)
+        except Exception:
+            raise 
         
         print("insertion completed in the agencias table")
         
@@ -164,8 +164,8 @@ class TableLoader:
                             continue
                             print(f"line not inserted: {data['cod_cliente']}")
 
-        except Exception as error:
-            raise ExceptionProgram(error)
+        except Exception:
+            raise 
         
         print("insertion completed in the clientes table")
         
@@ -195,8 +195,8 @@ class TableLoader:
                             continue
                             print(f"line not inserted: {data['cod_colaborador']}")
 
-        except Exception as error:
-            raise ExceptionProgram(error)
+        except Exception:
+            raise 
         
         print("insertion completed in the colaborador_agencia table")
 
@@ -232,8 +232,8 @@ class TableLoader:
                             continue
                             print(f"line not inserted: {data['cod_colaborador']}")
 
-        except Exception as error:
-            raise ExceptionProgram(error)
+        except Exception:
+            raise 
         
         print("insertion completed in the colaboradores table")
 
@@ -269,8 +269,8 @@ class TableLoader:
                             continue
                             print(f"line not inserted: {data['num_conta']}")
 
-        except Exception as error:
-            raise ExceptionProgram(error)
+        except Exception:
+            raise 
         
         print("insertion completed in the contas table")
 
@@ -309,7 +309,7 @@ class TableLoader:
                             continue
                             print(f"line not inserted: {data['cod_proposta']}")
 
-        except Exception as error:
-            raise ExceptionProgram(error)
+        except Exception:
+            raise 
         
         print("insertion completed in the propostas_credito table")

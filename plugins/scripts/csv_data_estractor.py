@@ -1,9 +1,7 @@
 from pathlib import Path 
 import pandas as pd
 import shutil
-from scripts.info import Info
-from scripts.exceptions.exception_program import ExceptionProgram
-import logging
+from plugins.scripts.info import Info
 
 class CsvDataEstractor:
 
@@ -22,8 +20,8 @@ class CsvDataEstractor:
                 self._clean_csv()
                 print(f"new file transacoes.csv on date {today} in: {csv_file.resolve()} ")
                 return str(csv_file.resolve())
-        except Exception as error:
-            raise ExceptionProgram(error)
+        except Exception:
+            raise 
         
     # Clean the file: transacoes.csv 
     def _clean_csv(self):
@@ -34,8 +32,8 @@ class CsvDataEstractor:
 
             csv_to_clean = pd.DataFrame(columns=header)
             csv_to_clean.to_csv(self.static_address, index=False )
-        except Exception as error:
-            raise ExceptionProgram(error)
+        except Exception:
+            raise 
     
 
 

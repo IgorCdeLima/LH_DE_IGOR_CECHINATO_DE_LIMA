@@ -54,9 +54,8 @@ class PostgreLoader:
                     conn.commit()      
 
         except Exception as error:
-            raise ExceptionProgram(error)
+            ExceptionProgram(error)
         
-
         print(f"closing the connection to Data Warehousing on {self.today}") 
 
 
@@ -97,8 +96,8 @@ class PostgreLoader:
                 
                 if (exist_transacoes is False) and (exist_contas is True):
                     table_transacoes.table_transacoes_creater()
-        except Exception as error:
-            raise ExceptionProgram(error)
+        except Exception:
+            raise 
         
         
        

@@ -8,7 +8,7 @@ class Info:
     CSV_SOURCE = BASE_DIR / 'csv' / 'transacoes.csv'
     SQL_SOURCE = BASE_DIR /  'sql' / 'banvic.sql'
     DATA_LAKE_DIR = BASE_DIR / 'data'
-    BASE_LOG = BASE_DIR / 'logs' / 'lh_de_igor_cechinato_de_lima_logs'  
+    BASE_LOG = BASE_DIR / 'log_program' / 'dag_id=lh_de_igor_cechinato_de_lima'  
 
 
     HOST = "db"

@@ -1,9 +1,9 @@
 from datetime import datetime
-from scripts.csv_data_estractor import CsvDataEstractor
-from scripts.sql_estractor import SqlEstractor
-from scripts.exceptions.exception_program import ExceptionProgram
+from plugins.scripts.csv_data_estractor import CsvDataEstractor
+from plugins.scripts.sql_estractor import SqlEstractor
+from plugins.scripts.exceptions.exception_program import ExceptionProgram
 
-# melhorar o Exception aqui
+
 
 
 class DataLake:
@@ -18,7 +18,7 @@ class DataLake:
         try:
             file_csv = self.file_csv_bkp.bkp_csv(self.today)
         except Exception as error:
-            raise ExceptionProgram(error)
+            raise ExceptionProgram(error) from error
         
         if file_csv is not None:
             return file_csv
@@ -29,7 +29,7 @@ class DataLake:
         try:
             address_table = self.file_sql_bkp.data_search(self.today)
         except Exception as error:
-            raise ExceptionProgram(error)
+            raise ExceptionProgram(error) from error
         
         if address_table is not None:
             return address_table
