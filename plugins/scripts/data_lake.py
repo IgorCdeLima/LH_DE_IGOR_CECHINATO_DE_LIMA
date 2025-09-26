@@ -1,7 +1,7 @@
 from datetime import datetime
-from plugins.scripts.csv_data_estractor import CsvDataEstractor
-from plugins.scripts.table_estractor import SqlEstractor
-from plugins.scripts.exceptions.exception_program import ExceptionProgram
+from scripts.csv_data_estractor import CsvDataEstractor
+from scripts.table_estractor import SqlEstractor
+from scripts.exceptions.exception_program import ExceptionProgram
 
 
 

@@ -1,6 +1,6 @@
 import pandas as pd
 from pathlib import Path
-from plugins.scripts.exceptions.exception_program import ExceptionProgram
+from scripts.exceptions.exception_program import ExceptionProgram
 
 class TableLoader:
 

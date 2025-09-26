@@ -1,6 +1,6 @@
 import pandas as pd
 from pathlib import Path
-from plugins.scripts.info import Info
+from scripts.info import Info
 
 class SqlEstractor:
 

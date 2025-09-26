@@ -6,9 +6,7 @@ from scripts.data_lake import DataLake
 from scripts.postgre_connection import PostgreConnection
 from scripts.csv_loader import CsvLoader
 from scripts.table_loader import TableLoader
-from pathlib import Path
 
-TABLE_TRANSACOES = False
 
 def connection_bd():
 
@@ -29,8 +27,7 @@ def extract_tables_sql(ti):
 def create_transacoes_table():
     with PostgreConnection() as conn:
         table_creater = CsvLoader(conn) 
-        if TABLE_TRANSACOES is False:
-            TABLE_TRANSACOES = table_creater.creater_table_transacoes(conn)
+        table_creater.creater_table_transacoes()
     
 def insert_transacoes(ti):
     address_csv = ti.xcom_pull(key='address_csv', task_ids='extract_transacoes_csv')
@@ -42,7 +39,7 @@ def insert_agencias(ti):
     address_tables = ti.xcom_pull(key='address_tables', task_ids='extract_tables_sql')
     with PostgreConnection() as conn:
         agencias = TableLoader(conn)
-        agencias.agencias_table(conn, address_tables[0])
+        agencias.agencias_table(address_tables[0])
 
 def insert_clientes(ti):
     address_tables = ti.xcom_pull(key='address_tables', task_ids='extract_tables_sql')
@@ -139,5 +136,9 @@ with DAG(
 
     end = EmptyOperator(task_id="end_extract")
 
-(start >> [extract_csv, extract_sql] >> postgree_connection >> [[transacoes_table >> transacoes_insert],agencias_insert, clientes_insert, colaborador_agencia_insert, colaboradores_insert, contas_insert, proposta_credito_insert ] >> end)
+start >> [extract_csv, extract_sql] >> postgree_connection
+
+postgree_connection>> transacoes_table >> transacoes_insert >> end
+
+postgree_connection >> [agencias_insert, clientes_insert, colaborador_agencia_insert, colaboradores_insert, contas_insert, proposta_credito_insert]  >> end
     

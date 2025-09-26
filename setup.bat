@@ -1,7 +1,3 @@
-REM =============================================
-REM Script para iniciar o Apache Airflow no Windows
-REM =============================================
-
 @echo off
 
 @echo iniciando o programa Apache airflow

@@ -1,7 +1,7 @@
 from pathlib import Path 
 import pandas as pd
 import shutil
-from plugins.scripts.info import Info
+from scripts.info import Info
 
 class CsvDataEstractor:
 
